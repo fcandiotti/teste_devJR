@@ -1,9 +1,7 @@
 package br.com.xbrain.teste.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -30,4 +28,15 @@ public class Vendas implements Serializable {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
+    public Vendas() {
+        super();
+    }
+
+    public Vendas(Integer id, Double valorVenda, LocalDate dataVenda, Vendedor vendedor, Cliente cliente) {
+        this.id = id;
+        this.valorVenda = valorVenda;
+        this.dataVenda = dataVenda;
+        this.vendedor = vendedor;
+        this.cliente = cliente;
+    }
 }
