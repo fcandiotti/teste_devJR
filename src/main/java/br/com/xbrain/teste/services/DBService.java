@@ -7,11 +7,9 @@ import br.com.xbrain.teste.repositories.ClienteRepository;
 import br.com.xbrain.teste.repositories.VendasRepository;
 import br.com.xbrain.teste.repositories.VendedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 @Service
@@ -32,10 +30,10 @@ public class DBService {
         Cliente cli1 = new Cliente(null, "José da Silva");
         Cliente cli2 = new Cliente(null, "João Mineiro");
 
-        Vendas v1 = new Vendas(null,100.10,LocalDate.of(2021, 11, 13),vendedor1,cli1);
+        Vendas v1 = new Vendas(null,100.10,LocalDate.of(2021, 11, 12),vendedor1,cli1);
         Vendas v2 = new Vendas(null,220.15,LocalDate.of(2021,11,13),vendedor1,cli1);
         Vendas v3 = new Vendas(null,345.80,LocalDate.of(2021,11,12),vendedor2,cli2);
-        Vendas v4 = new Vendas(null,100.45,LocalDate.of(2021,11,13),vendedor2,cli2);
+        Vendas v4 = new Vendas(null,100.45,LocalDate.of(2021,11,13),vendedor2,cli2);;
 
         vendedorRepository.saveAll(Arrays.asList(vendedor1, vendedor2));
         clienteRepository.saveAll(Arrays.asList(cli1, cli2));
