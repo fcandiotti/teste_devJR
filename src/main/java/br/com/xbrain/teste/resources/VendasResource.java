@@ -23,7 +23,7 @@ public class VendasResource {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Vendas salvar(Vendas venda) {
+    public Vendas salvar(@RequestBody Vendas venda) {
         return vendasService.salvar(venda);
     }
 
@@ -35,14 +35,14 @@ public class VendasResource {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Vendas buscarVendaPorId(Integer id) {
+    public Vendas buscarVendaPorId(@PathVariable("id") Integer id) {
         return vendasService.buscarPorId(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Venda não encontrada"));
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeVendaPorId(Integer id) {
+    public void removeVendaPorId(@PathVariable("id") Integer id) {
         vendasService.buscarPorId(id)
                 .map(vendas -> {
                     vendasService.removeVendaPorId(vendas.getId());
@@ -52,7 +52,7 @@ public class VendasResource {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void atualizarVenda(Integer id, @RequestBody Vendas venda) {
+    public void atualizarVenda(@PathVariable("id") Integer id, @RequestBody Vendas venda) {
         vendasService.buscarPorId(id)
                 .map(baseVendas -> {
                     modelMapper.map(venda, baseVendas);
