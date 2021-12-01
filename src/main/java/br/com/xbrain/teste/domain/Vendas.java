@@ -39,4 +39,6 @@ public class Vendas implements Serializable {
         this.vendedor = vendedor;
         this.cliente = cliente;
     }
+
+
 }
