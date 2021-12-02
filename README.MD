@@ -100,7 +100,7 @@ Host: localhost:8080
     "dataVenda": "xx/xx/xxxx"
 }
 ```
-###Deletar uma venda
+### Deletar uma venda
 
 ```
 DELETE /vendas/{id}
