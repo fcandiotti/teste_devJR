@@ -30,10 +30,10 @@ public class DBService {
         Cliente cli1 = new Cliente(null, "José da Silva");
         Cliente cli2 = new Cliente(null, "João Mineiro");
 
-        Vendas v1 = new Vendas(null,100.10,LocalDate.of(2021, 11, 12),vendedor1,cli1);
-        Vendas v2 = new Vendas(null,220.15,LocalDate.of(2021,11,13),vendedor1,cli1);
-        Vendas v3 = new Vendas(null,345.80,LocalDate.of(2021,11,12),vendedor2,cli2);
-        Vendas v4 = new Vendas(null,100.45,LocalDate.of(2021,11,13),vendedor2,cli2);;
+        Vendas v1 = new Vendas(null,LocalDate.of(2021,11,13),100.75 ,vendedor1,cli2);
+        Vendas v2 = new Vendas(null,LocalDate.of(2021,11,13),100.75 ,vendedor1,cli2);
+        Vendas v3 = new Vendas(null,LocalDate.of(2021,11,13),100.75 ,vendedor2,cli1);
+        Vendas v4 = new Vendas(null,LocalDate.of(2021,11,13),100.75 ,vendedor2,cli1);;
 
         vendedorRepository.saveAll(Arrays.asList(vendedor1, vendedor2));
         clienteRepository.saveAll(Arrays.asList(cli1, cli2));
