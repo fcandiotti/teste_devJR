@@ -50,6 +50,7 @@ curl --location --request GET 'http://localhost:8080/vendedores' \
 
 ```
 curl --location --request GET 'localhost:8080/vendedores/filtro?dataInicio=10/02/2020&dataFim=10/02/2020'
+```
 
 ### Cadastrar Cliente
 
@@ -128,4 +129,14 @@ curl --location --request DELETE 'localhost:8080/vendas/4' \
 --header 'Authorization: {{token}}' \
 --data-raw 
 ```
+## Requisitos
+
+### Obrigatórios
+
+ - [x] CRUD de Vendas
+	- Possuir Data da Venda, Valor da Venda, Id do Vendedor e Id do Cliente (é validado se os ids existem)
+ - [x] Criar Vendedor
+	- Nome do Vendedor
+ - [x] Criar Cliente
+	- Nome do Cliente
 
