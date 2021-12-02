@@ -7,9 +7,10 @@ A Api também retorna a lista de vendedores com os campos:
 ### Instalação
 
 É necessário o maven instalado (apt-get install maven)
-mvn install para instalar as dependências
-mvn spring-boot:run para rodar a aplicação
-Acesse a url: http://localhost:8080
+
+   1. mvn install para instalar as dependências
+   2. mvn spring-boot:run para rodar a aplicação
+   3. Acesse a url: http://localhost:8080
 
 ### Tecnologias
 Java11, Spring-Boot, Jpa/Hibernate, H2 Database
