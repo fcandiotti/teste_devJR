@@ -2,64 +2,57 @@ package br.com.xbrain.teste.resources;
 
 
 import br.com.xbrain.teste.domain.Vendas;
+import br.com.xbrain.teste.domain.dto.VendasDTO;
 import br.com.xbrain.teste.services.VendasService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/vendas")
 public class VendasResource {
 
     @Autowired
-    private VendasService vendasService;
+    private VendasService service;
 
-    @Autowired
-    private ModelMapper modelMapper;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Vendas salvar(@RequestBody Vendas venda) {
-        return vendasService.salvar(venda);
+    public ResponseEntity<VendasDTO> create(@Valid @RequestBody VendasDTO objDTO) {
+        Vendas obj = service.create(objDTO);
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequestUri().path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<Vendas> listaVendas() {
-        return vendasService.listaVendas();
+    public ResponseEntity<List<VendasDTO>> findAll() {
+        List<Vendas> list = service.findAll();
+        List<VendasDTO> listDTO = list.stream().map(obj -> new VendasDTO(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);
     }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public Vendas buscarVendaPorId(@PathVariable("id") Integer id) {
-        return vendasService.buscarPorId(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Venda não encontrada"));
-    }
-
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeVendaPorId(@PathVariable("id") Integer id) {
-        vendasService.buscarPorId(id)
-                .map(vendas -> {
-                    vendasService.removeVendaPorId(vendas.getId());
-                    return Void.TYPE;
-                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Venda não encontrada"));
+    public ResponseEntity<VendasDTO> findById(@PathVariable Integer id) {
+        Vendas obj = service.findById(id);
+        return ResponseEntity.ok().body(new VendasDTO(obj));
     }
 
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void atualizarVenda(@PathVariable("id") Integer id, @RequestBody Vendas venda) {
-        vendasService.buscarPorId(id)
-                .map(baseVendas -> {
-                    modelMapper.map(venda, baseVendas);
-                    vendasService.salvar(baseVendas);
-                    return Void.TYPE;
-                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Venda não encontrada"));
+    public ResponseEntity<VendasDTO> update(@PathVariable Integer id, @Valid @RequestBody VendasDTO objDTO) {
+        Vendas newObj = service.update(id, objDTO);
+        return ResponseEntity.ok().body(new VendasDTO(newObj));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<VendasDTO> delete(@PathVariable Integer id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
 
