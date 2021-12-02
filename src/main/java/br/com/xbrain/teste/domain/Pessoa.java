@@ -24,12 +24,14 @@ public abstract class Pessoa implements Serializable {
 
     public Pessoa() {
         super();
+        addPerfil(Perfil.CLIENTE);
     }
 
     public Pessoa(Integer id, String nome) {
         super();
         this.id = id;
         this.nome = nome;
+        addPerfil(Perfil.CLIENTE);
     }
     public Set<Perfil> getPerfis() {
         return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());

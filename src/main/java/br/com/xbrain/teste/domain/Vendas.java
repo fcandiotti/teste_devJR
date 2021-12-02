@@ -15,14 +15,15 @@ public class Vendas implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Double valorVenda;
-
     @JsonFormat(pattern ="dd/MM/yyyy")
     private LocalDate dataVenda;
+
+    private Double valorVenda;
 
     @ManyToOne
     @JoinColumn(name = "vendedor_id")
     private Vendedor vendedor;
+
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
@@ -32,12 +33,14 @@ public class Vendas implements Serializable {
         super();
     }
 
-    public Vendas(Integer id, Double valorVenda, LocalDate dataVenda, Vendedor vendedor, Cliente cliente) {
+    public Vendas(Integer id, LocalDate dataVenda, Double valorVenda, Vendedor vendedor, Cliente cliente) {
+        super();
         this.id = id;
-        this.valorVenda = valorVenda;
         this.dataVenda = dataVenda;
+        this.valorVenda = valorVenda;
         this.vendedor = vendedor;
         this.cliente = cliente;
+
     }
 
 
