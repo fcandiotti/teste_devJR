@@ -21,7 +21,7 @@ Host: localhost:8080
 
 ```
 
-###Listar Individualmente vendedores com todas as suas vendas
+### Listar Individualmente vendedores com todas as suas vendas
 
 ```
 GET / vendedores/{id}
@@ -47,20 +47,20 @@ Host: localhost:8080
 
 ```
 
-###Listar o cliente especifico
+### Listar o cliente especifico
 
 ```
 GET / clientes/{id}
 Host: localhost:8080
 ```
-###Listar todos os clientes
+### Listar todos os clientes
 
 ```
 GET / clientes
 Host: localhost:8080
 ```
 
-###Cadastrar uma venda
+###  Cadastrar uma venda
 
 ```
 POST / vendas
@@ -74,20 +74,20 @@ Host: localhost:8080
 
 }
 ```
-###Listar uma venda em especifico
+### Listar uma venda em especifico
 
 ```
 GET / vendas/{id}
 Host: localhost:8080
 ```
 
-###Listar uma todas as vendas
+### Listar uma todas as vendas
 
 ```
 GET / vendas
 Host: localhost:8080
 ```
-###Atualizar uma venda
+### Atualizar uma venda
 
 ```
 PUT / vendas/{id}
