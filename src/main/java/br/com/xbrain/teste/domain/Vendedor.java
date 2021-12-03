@@ -7,12 +7,13 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.OptionalDouble;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 @Data
 @Entity
@@ -56,10 +57,17 @@ public class Vendedor extends Pessoa {
                 .average();
     }
 
+
     public Double totalVendas() {
         return vendas.stream()
                 .map(vendas -> vendas.getValorVenda())
                 .mapToDouble(Double::doubleValue)
                 .sum();
     }
+
+    public OptionalDouble mediaDeVendasPorDia(LocalDate dataInicio, LocalDate dataFim) {
+        Long totalDeDias = DAYS.between(dataInicio, dataFim) + 1;
+        return OptionalDouble.of((double) quantidaDeVendas() / totalDeDias);
+    }
+
 }
