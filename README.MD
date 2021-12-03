@@ -101,7 +101,7 @@ curl --location --request GET 'http://localhost:8080/vendas/1' \
 --data-raw ''
 ```
 
-### Listar uma todas as vendas
+### Listar todas as vendas
 
 ```
 curl --location --request GET 'http://localhost:8080/vendas' \
@@ -133,7 +133,7 @@ curl --location --request DELETE 'localhost:8080/vendas/4' \
 
 ### Obrigatórios
 
- - [x] CRUD de Vendas
+ - [x] Cadastro de Vendas
 	- Possuir Data da Venda, Valor da Venda, Id do Vendedor e Id do Cliente (é validado se os ids existem)
  - [x] Criar Vendedor
 	- Nome do Vendedor
