@@ -31,7 +31,7 @@ public class VendedorResource {
     @GetMapping
     public ResponseEntity<List<VendedorDTO>> findAll() {
         List<Vendedor> list = service.findAll();
-        List<VendedorDTO> listDTO = list.stream().map(obj -> new VendedorDTO(obj)).collect(Collectors.toList());
+        List<VendedorDTO> listDTO = list.stream().map(VendedorDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
     }
 
