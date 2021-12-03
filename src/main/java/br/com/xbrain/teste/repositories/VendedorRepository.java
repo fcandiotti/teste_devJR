@@ -11,5 +11,5 @@ import java.util.List;
 public interface VendedorRepository extends JpaRepository<Vendedor, Integer> {
 
     @Query("SELECT DISTINCT v FROM Vendedor v LEFT JOIN FETCH v.vendas ve WHERE ve.dataVenda BETWEEN ?1 AND ?2")
-    List<VendedorDTO> filtraVendasPorPeriodo(LocalDate dataInicio, LocalDate dataFim);
+    List<Vendedor> filtraVendasPorPeriodo(LocalDate dataInicio, LocalDate dataFim);
 }
