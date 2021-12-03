@@ -14,11 +14,12 @@ import java.util.stream.Collectors;
 @Data
 public class ClienteDTO implements Serializable {
 
-    protected Integer id;
+    private Integer id;
 
     @NotNull(message = "O Campo NOME é obrigatório!")
-    protected String nome;
-    protected Set<Integer> perfis = new HashSet<>();
+    private String nome;
+
+    private Set<Integer> perfis = new HashSet<>();
 
     public ClienteDTO() {
         super();
