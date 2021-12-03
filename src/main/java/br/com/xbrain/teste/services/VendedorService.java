@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class VendedorService {
@@ -34,7 +35,10 @@ public class VendedorService {
     }
 
     public List<VendedorDTO> filtraVendasPorPeriodo(LocalDate dataInicio, LocalDate dataFim){
-        return repository.filtraVendasPorPeriodo(dataInicio, dataFim);
+       List<Vendedor> vendedores = repository.filtraVendasPorPeriodo(dataInicio, dataFim);
+       return vendedores.stream()
+               .map(vendedor -> new VendedorDTO(vendedor, dataInicio, dataFim))
+               .collect(Collectors.toList());
     }
 
 }
