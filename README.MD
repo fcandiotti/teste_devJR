@@ -2,15 +2,15 @@
 
 Este repositório contém o código da API de um CRUD de Vendas, criando e filtrando Vendedor e Cliente,
 A Api também retorna a lista de vendedores com os campos:
-##### nome, total de vendas do vendedor e média de vendas diária, conforme o período informado por parâmetro.
+##### nome, total de vendas do vendedor e média de vendas diária, conforme o período informado por parâmetro. 
 
 ### Instalação
 
 É necessário o maven instalado (apt-get install maven)
 
-1. mvn install para instalar as dependências
-2. mvn spring-boot:run para rodar a aplicação
-3. Acesse a url: http://localhost:8080
+   1. mvn install para instalar as dependências
+   2. mvn spring-boot:run para rodar a aplicação
+   3. Acesse a url: http://localhost:8080
 
 ### Tecnologias
 Java11, Spring-Boot, Jpa/Hibernate, H2 Database
@@ -133,10 +133,10 @@ curl --location --request DELETE 'localhost:8080/vendas/4' \
 
 ### Obrigatórios
 
-- [x] Cadastro de Vendas
-  - Possuir Data da Venda, Valor da Venda, Id do Vendedor e Id do Cliente (é validado se os ids existem)
-- [x] Criar Vendedor
-  - Nome do Vendedor
-- [x] Criar Cliente
-  - Nome do Cliente
-  
+ - [x] Cadastro de Vendas
+	- Possuir Data da Venda, Valor da Venda, Id do Vendedor e Id do Cliente (é validado se os ids existem)
+ - [x] Criar Vendedor
+	- Nome do Vendedor
+ - [x] Criar Cliente
+	- Nome do Cliente
+
