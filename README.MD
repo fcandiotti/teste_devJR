@@ -1,4 +1,4 @@
-# XBrain - CRUD Teste para Dev Java Jr.
+# CRUD de Vendas!
 
 Este repositório contém o código da API de um CRUD de Vendas, criando e filtrando Vendedor e Cliente,
 A Api também retorna a lista de vendedores com os campos:
