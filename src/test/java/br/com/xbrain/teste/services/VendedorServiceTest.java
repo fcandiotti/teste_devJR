@@ -68,10 +68,20 @@ class VendedorServiceTest extends VendedorService {
 
     @Test
     void procuraTodosVendedores() {
+        when(repository.findAll()).thenReturn(List.of(vendedor));
+
+        List<Vendedor> response = service.findAll();
+
+        assertNotNull(response);
+        assertEquals(1, response.size());
+        assertEquals(Vendedor.class, response.get(0).getClass());
+
+        assertEquals(ID, response.get(0).getId());
+        assertEquals(NOME, response.get(0).getNome());
     }
 
     @Test
-    void create() {
+    void criaVendedor() {
     }
 
     @Test
