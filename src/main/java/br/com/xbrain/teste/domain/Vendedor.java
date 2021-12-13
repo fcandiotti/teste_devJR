@@ -9,7 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -38,7 +40,7 @@ public class Vendedor extends Pessoa {
         super();
         this.id = obj.getId();
         this.nome = obj.getNome();
-        this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
+        this.perfis = obj.getPerfis().stream().map(Perfil::getCodigo).collect(Collectors.toSet());
     }
 
     public int quantidaDeVendas() {
@@ -60,7 +62,7 @@ public class Vendedor extends Pessoa {
 
     public Double totalVendas() {
         return vendas.stream()
-                .map(vendas -> vendas.getValorVenda())
+                .map(Vendas::getValorVenda)
                 .mapToDouble(Double::doubleValue)
                 .sum();
     }
