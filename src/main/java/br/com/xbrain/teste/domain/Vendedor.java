@@ -1,12 +1,10 @@
 package br.com.xbrain.teste.domain;
 
 import br.com.xbrain.teste.domain.dto.VendedorDTO;
-import br.com.xbrain.teste.domain.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -19,7 +17,13 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 @Data
 @Entity
-public class Vendedor extends Pessoa {
+public class Vendedor {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    private String nome;
 
     @JsonIgnore
     @OneToMany(mappedBy = "vendedor")
@@ -27,20 +31,18 @@ public class Vendedor extends Pessoa {
 
 
     public Vendedor() {
-        super();
-        addPerfil(Perfil.VENDEDOR);
     }
 
     public Vendedor(Integer id, String nome) {
-        super(id, nome);
-        addPerfil(Perfil.VENDEDOR);
+        super();
+        this.id = id;
+        this.nome = nome;
     }
 
     public Vendedor(VendedorDTO obj) {
         super();
         this.id = obj.getId();
         this.nome = obj.getNome();
-        this.perfis = obj.getPerfis().stream().map(Perfil::getCodigo).collect(Collectors.toSet());
     }
 
     public int quantidaDeVendas() {

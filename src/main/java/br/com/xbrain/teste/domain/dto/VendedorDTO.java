@@ -1,20 +1,20 @@
 package br.com.xbrain.teste.domain.dto;
 
 import br.com.xbrain.teste.domain.Vendedor;
-import br.com.xbrain.teste.domain.enums.Perfil;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.OptionalDouble;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class VendedorDTO implements Serializable {
 
     private Integer id;
@@ -32,18 +32,17 @@ public class VendedorDTO implements Serializable {
     private OptionalDouble mediaVendasPorDia;
 
 
+    @JsonIgnore
     protected Set<Integer> perfis = new HashSet<>();
 
     public VendedorDTO() {
         super();
-        addPerfil(Perfil.VENDEDOR);
     }
 
     public VendedorDTO(Vendedor obj) {
         super();
         this.id = obj.getId();
         this.nome = obj.getNome();
-        this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
         this.quantidadeVenda = obj.quantidaDeVendas();
         this.totalVendas = obj.totalVendas();
         this.informacoesDasVendas = obj.informacoesDasVendas();
@@ -54,23 +53,11 @@ public class VendedorDTO implements Serializable {
         super();
         this.id = obj.getId();
         this.nome = obj.getNome();
-        this.perfis = obj.getPerfis().stream().map(Perfil::getCodigo).collect(Collectors.toSet());
         this.quantidadeVenda = obj.quantidaDeVendas();
         this.totalVendas = obj.totalVendas();
         this.informacoesDasVendas = obj.informacoesDasVendas();
         this.mediaVendas = obj.mediaVendas();
         this.mediaVendasPorDia = obj.mediaDeVendasPorDia(dataInicio, dataFim);
     }
+ }
 
-    public Set<Perfil> getPerfis() {
-        return perfis.stream().map(Perfil::toEnum).collect(Collectors.toSet());
-    }
-
-    public void addPerfil(Perfil perfil) {
-        this.perfis.add(perfil.getCodigo());
-    }
-
-
-
-
-}
