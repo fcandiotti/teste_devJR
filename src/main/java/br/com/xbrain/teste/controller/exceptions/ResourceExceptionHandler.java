@@ -1,4 +1,4 @@
-package br.com.xbrain.teste.resources.exceptions;
+package br.com.xbrain.teste.controller.exceptions;
 
 
 import br.com.xbrain.teste.services.exceptions.ObjectnotFoundException;

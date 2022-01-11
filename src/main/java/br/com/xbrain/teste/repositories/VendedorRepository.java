@@ -1,7 +1,6 @@
 package br.com.xbrain.teste.repositories;
 
 import br.com.xbrain.teste.domain.Vendedor;
-import br.com.xbrain.teste.domain.dto.VendedorDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
