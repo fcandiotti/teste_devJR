@@ -1,4 +1,4 @@
-package br.com.xbrain.teste.resources;
+package br.com.xbrain.teste.controller;
 
 import br.com.xbrain.teste.domain.Vendedor;
 import br.com.xbrain.teste.domain.dto.VendedorDTO;
@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
@@ -17,7 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/vendedores")
-public class VendedorResource {
+public class VendedorController {
 
     @Autowired
     private VendedorService service;
@@ -37,7 +36,7 @@ public class VendedorResource {
 
 
     @PostMapping
-    public ResponseEntity<VendedorDTO> create(@Valid @RequestBody VendedorDTO objDTO) {
+    public ResponseEntity<VendedorDTO> create(@RequestBody VendedorDTO objDTO) {
         Vendedor newObj = service.create(objDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
         return ResponseEntity.created(uri).build();

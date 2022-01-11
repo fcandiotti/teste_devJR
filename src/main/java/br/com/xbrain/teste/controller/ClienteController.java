@@ -1,4 +1,4 @@
-package br.com.xbrain.teste.resources;
+package br.com.xbrain.teste.controller;
 
 import br.com.xbrain.teste.domain.Cliente;
 import br.com.xbrain.teste.domain.dto.ClienteDTO;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/clientes")
-public class ClienteResource {
+public class ClienteController {
 
     @Autowired
     private ClienteService service;

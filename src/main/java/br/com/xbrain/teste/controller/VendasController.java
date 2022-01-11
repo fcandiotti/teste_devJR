@@ -1,4 +1,4 @@
-package br.com.xbrain.teste.resources;
+package br.com.xbrain.teste.controller;
 
 
 import br.com.xbrain.teste.domain.Vendas;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/vendas")
-public class VendasResource {
+public class VendasController {
 
     @Autowired
     private VendasService service;
