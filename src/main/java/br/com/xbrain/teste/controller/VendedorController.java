@@ -5,6 +5,7 @@ import br.com.xbrain.teste.domain.dto.VendedorDTO;
 import br.com.xbrain.teste.services.VendedorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -22,35 +23,34 @@ public class VendedorController {
     private VendedorService service;
 
     @GetMapping("/{id}")
-    public ResponseEntity<VendedorDTO> findById(@PathVariable Integer id) {
+    public VendedorDTO findById(@PathVariable Integer id) {
         Vendedor obj = service.findById(id);
-        return ResponseEntity.ok().body(new VendedorDTO(obj));
+        return new VendedorDTO(obj);
     }
 
     @GetMapping
-    public ResponseEntity<List<VendedorDTO>> findAll() {
+    public List<VendedorDTO> findAll() {
         List<Vendedor> list = service.findAll();
-        List<VendedorDTO> listDTO = list.stream().map(VendedorDTO::new).collect(Collectors.toList());
-        return ResponseEntity.ok().body(listDTO);
+        return list.stream().map(VendedorDTO::new).collect(Collectors.toList());
     }
 
 
     @PostMapping
-    public ResponseEntity<VendedorDTO> create(@RequestBody VendedorDTO objDTO) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public VendedorDTO create(@RequestBody VendedorDTO objDTO) {
         Vendedor newObj = service.create(objDTO);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+        return new VendedorDTO(newObj);
     }
 
     @RequestMapping(value = "filtro")
-    public ResponseEntity<List<VendedorDTO>> filtraVendasPorPeriodo(
+    public List<VendedorDTO> filtraVendasPorPeriodo(
             @RequestParam("dataInicio") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "dd/MM/yyyy")
                     LocalDate dataInicio,
             @RequestParam("dataFim") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "dd/MM/yyyy")
                     LocalDate dataFim
     ) {
         List<VendedorDTO> list = service.filtraVendasPorPeriodo(dataInicio, dataFim);
-        return ResponseEntity.ok().body(list);
+        return list;
     }
 
 }

@@ -4,6 +4,7 @@ import br.com.xbrain.teste.domain.Cliente;
 import br.com.xbrain.teste.domain.dto.ClienteDTO;
 import br.com.xbrain.teste.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -21,24 +22,21 @@ public class ClienteController {
     private ClienteService service;
 
     @GetMapping("/{id}")
-    public ResponseEntity<ClienteDTO> findById(@PathVariable Integer id) {
+    public ClienteDTO findById(@PathVariable Integer id) {
         Cliente obj = service.findById(id);
-        return ResponseEntity.ok().body(new ClienteDTO(obj));
+        return new ClienteDTO(obj);
     }
 
     @GetMapping
-    public ResponseEntity<List<ClienteDTO>> findAll() {
-        List<Cliente> list = service.findAll();
-        List<ClienteDTO> listDTO = list.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());
-        return ResponseEntity.ok().body(listDTO);
+    public List<ClienteDTO> findAll() {
+        List<Cliente> listaClientes = service.findAll();
+        return listaClientes.stream().map(ClienteDTO::new).collect(Collectors.toList());
     }
 
     @PostMapping
-    public ResponseEntity<ClienteDTO> create(@Valid @RequestBody ClienteDTO objDTO) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public ClienteDTO create(@Valid @RequestBody ClienteDTO objDTO) {
         Cliente newObj = service.save(objDTO);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+        return new ClienteDTO(newObj);
     }
-
-
 }

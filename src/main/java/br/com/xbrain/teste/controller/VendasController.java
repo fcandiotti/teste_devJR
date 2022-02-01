@@ -5,6 +5,7 @@ import br.com.xbrain.teste.domain.Vendas;
 import br.com.xbrain.teste.domain.dto.VendasDTO;
 import br.com.xbrain.teste.services.VendasService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -23,36 +24,34 @@ public class VendasController {
 
 
     @PostMapping
-    public ResponseEntity<VendasDTO> create(@Valid @RequestBody VendasDTO objDTO) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public VendasDTO create(@Valid @RequestBody VendasDTO objDTO) {
         Vendas obj = service.create(objDTO);
-        URI uri = ServletUriComponentsBuilder
-                .fromCurrentRequestUri().path("/{id}").buildAndExpand(obj.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+        return new VendasDTO(obj);
     }
 
     @GetMapping
-    public ResponseEntity<List<VendasDTO>> findAll() {
+    public List<VendasDTO> findAll() {
         List<Vendas> list = service.findAll();
-        List<VendasDTO> listDTO = list.stream().map(obj -> new VendasDTO(obj)).collect(Collectors.toList());
-        return ResponseEntity.ok().body(listDTO);
+        return list.stream().map(VendasDTO::new).collect(Collectors.toList());
+
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<VendasDTO> findById(@PathVariable Integer id) {
+    public VendasDTO findById(@PathVariable Integer id) {
         Vendas obj = service.findById(id);
-        return ResponseEntity.ok().body(new VendasDTO(obj));
+        return new VendasDTO(obj);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<VendasDTO> update(@PathVariable Integer id, @Valid @RequestBody VendasDTO objDTO) {
+    public VendasDTO update(@PathVariable Integer id, @Valid @RequestBody VendasDTO objDTO) {
         Vendas newObj = service.update(id, objDTO);
-        return ResponseEntity.ok().body(new VendasDTO(newObj));
+        return new VendasDTO(newObj);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<VendasDTO> delete(@PathVariable Integer id) {
+    public void delete(@PathVariable Integer id) {
         service.delete(id);
-        return ResponseEntity.noContent().build();
     }
 }
 
