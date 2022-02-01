@@ -118,8 +118,8 @@ curl --location --request PUT 'localhost:8080/vendas/4' \
     "valorVenda": 10.22,
     "vendedor": 6,
     "cliente": 5,
-    "nomeVendedor": "Vendedor Mil Grau",
-    "nomeCliente": "Lucas Yoshi"
+    "nomeVendedor": "Vendedor Fernando",
+    "nomeCliente": "Fernando Cliente"
 }'
 ```
 ### Deletar uma venda
