@@ -20,18 +20,18 @@ public class VendedorService {
     private VendedorRepository repository;
 
     public Vendedor findById(Integer id) {
-        Optional<Vendedor> obj = repository.findById(id);
-                return obj.orElseThrow(() -> new ObjectnotFoundException("Vendedor Não Encontrado: "+ id));
+        Optional<Vendedor> vendedor = repository.findById(id);
+                return vendedor.orElseThrow(() -> new ObjectnotFoundException("Vendedor Não Encontrado: "+ id));
     }
 
     public List<Vendedor> findAll() {
         return repository.findAll();
     }
 
-    public Vendedor create(@Valid VendedorDTO objDTO) {
-        objDTO.setId(null);
-        Vendedor newOjb = new Vendedor(objDTO);
-        return repository.save(newOjb);
+    public Vendedor create(@Valid VendedorDTO vendedorDTO) {
+        vendedorDTO.setId(null);
+        Vendedor novoVendedor = new Vendedor(vendedorDTO);
+        return repository.save(novoVendedor);
     }
 
     public List<VendedorDTO> filtraVendasPorPeriodo(LocalDate dataInicio, LocalDate dataFim){

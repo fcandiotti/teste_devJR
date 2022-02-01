@@ -24,23 +24,23 @@ public class VendasService {
     private ClienteService clienteService;
 
     public Vendas findById(Integer id) {
-        Optional<Vendas> obj = repository.findById(id);
-        return obj.orElseThrow(() -> new ObjectnotFoundException("Venda Não Encontrada! " + id));
+        Optional<Vendas> ListaVenda = repository.findById(id);
+        return ListaVenda.orElseThrow(() -> new ObjectnotFoundException("Venda Não Encontrada! " + id));
     }
 
     public List<Vendas> findAll() {
         return repository.findAll();
     }
 
-    public Vendas create(@Valid VendasDTO objDTO) {
-        return repository.save(newVendas(objDTO));
+    public Vendas create(@Valid VendasDTO vendasDTO) {
+        return repository.save(newVendas(vendasDTO));
     }
 
-    public Vendas update(Integer id, @Valid VendasDTO objDTO) {
-        objDTO.setId(id);
-        Vendas oldObj = findById(id);
-        oldObj = newVendas(objDTO);
-        return repository.save(oldObj);
+    public Vendas update(Integer id, @Valid VendasDTO vendasDTO) {
+        vendasDTO.setId(id);
+        Vendas vendaAtualizada = findById(id);
+        vendaAtualizada = newVendas(vendasDTO);
+        return repository.save(vendaAtualizada);
     }
 
     public void delete(Integer id) {
@@ -48,19 +48,19 @@ public class VendasService {
         repository.deleteById(id);
     }
 
-    private Vendas newVendas(VendasDTO obj) {
-        Vendedor vendedor = vendedorService.findById(obj.getVendedor());
-        Cliente cliente = clienteService.findById(obj.getCliente());
+    private Vendas newVendas(VendasDTO vendasDTO) {
+        Vendedor vendedor = vendedorService.findById(vendasDTO.getVendedor());
+        Cliente cliente = clienteService.findById(vendasDTO.getCliente());
 
         Vendas venda = new Vendas();
-        if(obj.getId() !=null ) {
-            venda.setId(obj.getId());
+        if(vendasDTO.getId() !=null ) {
+            venda.setId(vendasDTO.getId());
         }
 
         venda.setVendedor(vendedor);
         venda.setCliente(cliente);
-        venda.setValorVenda(obj.getValorVenda());
-        venda.setDataVenda(obj.getDataVenda());
+        venda.setValorVenda(vendasDTO.getValorVenda());
+        venda.setDataVenda(vendasDTO.getDataVenda());
         return venda;
     }
 

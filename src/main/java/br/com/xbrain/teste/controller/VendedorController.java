@@ -24,22 +24,22 @@ public class VendedorController {
 
     @GetMapping("/{id}")
     public VendedorDTO findById(@PathVariable Integer id) {
-        Vendedor obj = service.findById(id);
-        return new VendedorDTO(obj);
+        Vendedor listaVendedor = service.findById(id);
+        return new VendedorDTO(listaVendedor);
     }
 
     @GetMapping
     public List<VendedorDTO> findAll() {
-        List<Vendedor> list = service.findAll();
-        return list.stream().map(VendedorDTO::new).collect(Collectors.toList());
+        List<Vendedor> listaVendedores = service.findAll();
+        return listaVendedores.stream().map(VendedorDTO::new).collect(Collectors.toList());
     }
 
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public VendedorDTO create(@RequestBody VendedorDTO objDTO) {
-        Vendedor newObj = service.create(objDTO);
-        return new VendedorDTO(newObj);
+    public VendedorDTO create(@RequestBody VendedorDTO vendedorDTO) {
+        Vendedor novaVendedor = service.create(vendedorDTO);
+        return new VendedorDTO(novaVendedor);
     }
 
     @RequestMapping(value = "filtro")
@@ -49,8 +49,8 @@ public class VendedorController {
             @RequestParam("dataFim") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "dd/MM/yyyy")
                     LocalDate dataFim
     ) {
-        List<VendedorDTO> list = service.filtraVendasPorPeriodo(dataInicio, dataFim);
-        return list;
+        List<VendedorDTO> listaVendas = service.filtraVendasPorPeriodo(dataInicio, dataFim);
+        return listaVendas;
     }
 
 }

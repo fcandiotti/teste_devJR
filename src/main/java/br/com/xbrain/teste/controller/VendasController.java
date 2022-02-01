@@ -25,31 +25,32 @@ public class VendasController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public VendasDTO create(@Valid @RequestBody VendasDTO objDTO) {
-        Vendas obj = service.create(objDTO);
-        return new VendasDTO(obj);
+    public VendasDTO create(@Valid @RequestBody VendasDTO vendasDTO) {
+        Vendas novaVenda = service.create(vendasDTO);
+        return new VendasDTO(novaVenda);
     }
 
     @GetMapping
     public List<VendasDTO> findAll() {
-        List<Vendas> list = service.findAll();
-        return list.stream().map(VendasDTO::new).collect(Collectors.toList());
+        List<Vendas> listaVendas = service.findAll();
+        return listaVendas.stream().map(VendasDTO::new).collect(Collectors.toList());
 
     }
 
     @GetMapping("/{id}")
     public VendasDTO findById(@PathVariable Integer id) {
-        Vendas obj = service.findById(id);
-        return new VendasDTO(obj);
+        Vendas listaVenda = service.findById(id);
+        return new VendasDTO(listaVenda);
     }
 
     @PutMapping("/{id}")
-    public VendasDTO update(@PathVariable Integer id, @Valid @RequestBody VendasDTO objDTO) {
-        Vendas newObj = service.update(id, objDTO);
-        return new VendasDTO(newObj);
+    public VendasDTO update(@PathVariable Integer id, @Valid @RequestBody VendasDTO vendasDTO) {
+        Vendas atualizaVenda = service.update(id, vendasDTO);
+        return new VendasDTO(atualizaVenda);
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Integer id) {
         service.delete(id);
     }

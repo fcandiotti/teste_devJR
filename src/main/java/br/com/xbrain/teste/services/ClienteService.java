@@ -17,17 +17,17 @@ public class ClienteService {
     private ClienteRepository repository;
 
     public Cliente findById(Integer id) {
-        Optional<Cliente> obj = repository.findById(id);
-                return obj.orElseThrow(() -> new ObjectnotFoundException("Cliente Não Encontrado: "+ id));
+        Optional<Cliente> cliente = repository.findById(id);
+                return cliente.orElseThrow(() -> new ObjectnotFoundException("Cliente Não Encontrado: "+ id));
     }
 
     public List<Cliente> findAll() {
         return repository.findAll();
     }
 
-    public Cliente save(ClienteDTO objDTO) {
-        objDTO.setId(null);
-        Cliente newObj = new Cliente(objDTO);
-        return repository.save((newObj));
+    public Cliente save(ClienteDTO clienteDTO) {
+        clienteDTO.setId(null);
+        Cliente novoCliente = new Cliente(clienteDTO);
+        return repository.save((novoCliente));
     }
 }
